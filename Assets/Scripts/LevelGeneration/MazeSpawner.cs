@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MazeSpawner : MonoBehaviour
 {
-    [SerializeField] private Cell[] _cellTemplates;
+    [SerializeField] private Cell _blockTemplate;
 
     private void Start()
     {
@@ -13,7 +13,8 @@ public class MazeSpawner : MonoBehaviour
         {
             for (int y = 0; y < maze.GetLength(1); y++)
             {
-                Instantiate(_cellTemplates[1], new Vector2(x, y),Quaternion.identity);
+                Cell cell = Instantiate(_blockTemplate, new Vector2(x, y), Quaternion.identity);
+                cell.gameObject.SetActive(maze[x,y].BlockEnabled);
             }
         }
     }
