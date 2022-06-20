@@ -44,7 +44,26 @@ public class MazeGenerator
 
         PlaceExitAndStart(maze);
 
+        FillEmpty(maze);
+
         return maze;
+    }
+
+    private void FillEmpty(MazeGeneratorCell[,] maze)
+    {
+        for (int y = 0; y < maze.GetLength(1); y++)
+        {
+            for (int x = 1; x  < maze.GetLength(0); x++)
+            {
+                if ((x + 2) < maze.GetLength(0))
+                {
+                    if (maze[x, y].BlockEnabled == true && maze[x + 1, y].BlockEnabled == false && maze[x + 2, y].BlockEnabled == true)
+                    {
+                        maze[x + 1, y].BlockEnabled = true;
+                    }
+                }
+            }
+        }
     }
 
     private void PlaceExitAndStart(MazeGeneratorCell[,] maze)
