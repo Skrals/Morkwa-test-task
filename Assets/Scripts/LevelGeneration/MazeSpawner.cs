@@ -3,6 +3,8 @@ using UnityEngine;
 public class MazeSpawner : MonoBehaviour
 {
     [SerializeField] private Cell _blockTemplate;
+    [SerializeField] private Cell _finishTemplate;
+    [SerializeField] private Cell _startTemplate;
 
     private void Start()
     {
@@ -13,8 +15,19 @@ public class MazeSpawner : MonoBehaviour
         {
             for (int y = 0; y < maze.GetLength(1); y++)
             {
-                Cell cell = Instantiate(_blockTemplate, new Vector2(x, y), Quaternion.identity);
-                cell.gameObject.SetActive(maze[x,y].BlockEnabled);
+                if (maze[x, y].Finish)
+                {
+                    Instantiate(_finishTemplate, new Vector2(x, y), Quaternion.identity);
+                }
+                else if (maze[x, y].Start)
+                {
+                    Instantiate(_startTemplate, new Vector2(x, y), Quaternion.identity);
+                }
+                else
+                {
+                    Cell cell = Instantiate(_blockTemplate, new Vector2(x, y), Quaternion.identity);
+                    cell.gameObject.SetActive(maze[x, y].BlockEnabled);
+                }
             }
         }
     }

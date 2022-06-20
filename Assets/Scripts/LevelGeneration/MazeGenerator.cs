@@ -8,6 +8,9 @@ public class MazeGeneratorCell
 
     public bool BlockEnabled = true;
     public bool Visited = false;
+
+    public bool Start = false;
+    public bool Finish = false;
 }
 
 public class MazeGenerator
@@ -29,17 +32,28 @@ public class MazeGenerator
 
         for (int x = 0; x < maze.GetLength(0); x++)
         {
-            maze[x,_height-1].BlockEnabled = false;
+            maze[x, _height - 1].BlockEnabled = false;
         }
 
         for (int y = 0; y < maze.GetLength(1); y++)
         {
-            maze[ _width - 1, y].BlockEnabled = false;
+            maze[_width - 1, y].BlockEnabled = false;
         }
 
         RemoveWalls(maze);
 
+        PlaceExitAndStart(maze);
+
         return maze;
+    }
+
+    private void PlaceExitAndStart(MazeGeneratorCell[,] maze)
+    {
+        MazeGeneratorCell furthest = maze[0, 0];
+        furthest.Start = true;
+
+        furthest = maze[_height - 2, _width - 2];
+        furthest.Finish = true;
     }
 
     private void RemoveWalls(MazeGeneratorCell[,] maze)
@@ -58,13 +72,13 @@ public class MazeGenerator
 
             if (x > 0 && !maze[x - 1, y].Visited) unvisitedCell.Add(maze[x - 1, y]);
             if (y > 0 && !maze[x, y - 1].Visited) unvisitedCell.Add(maze[x, y - 1]);
-            if(x <_width -2 && !maze[x+1, y].Visited) unvisitedCell.Add(maze[x+1, y]);
-            if(y<_height -2 && !maze[x, y+1].Visited) unvisitedCell.Add(maze[x, y+1]);
+            if (x < _width - 2 && !maze[x + 1, y].Visited) unvisitedCell.Add(maze[x + 1, y]);
+            if (y < _height - 2 && !maze[x, y + 1].Visited) unvisitedCell.Add(maze[x, y + 1]);
 
-            if(unvisitedCell.Count > 0)
+            if (unvisitedCell.Count > 0)
             {
-                MazeGeneratorCell chosen = unvisitedCell[Random.Range(0,unvisitedCell.Count)];
-                RemoveWall(current,chosen);
+                MazeGeneratorCell chosen = unvisitedCell[Random.Range(0, unvisitedCell.Count)];
+                RemoveWall(current, chosen);
 
                 chosen.Visited = true;
                 stack.Push(chosen);
@@ -81,9 +95,9 @@ public class MazeGenerator
 
     private void RemoveWall(MazeGeneratorCell a, MazeGeneratorCell b)
     {
-        if(a.X == b.X)
+        if (a.X == b.X)
         {
-            if(a.Y >b.Y)
+            if (a.Y > b.Y)
             {
                 a.BlockEnabled = false;
             }
@@ -94,13 +108,13 @@ public class MazeGenerator
         }
         else
         {
-            if(a.X >b.X)
+            if (a.X > b.X)
             {
-                a.BlockEnabled=false;
+                a.BlockEnabled = false;
             }
             else
             {
-                b.BlockEnabled=false;
+                b.BlockEnabled = false;
             }
         }
     }
