@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BackGround
+    uniqueID: 3006239335
+    locked: 0
+  - name: ForwardLayer
+    uniqueID: 1235998707
+    locked: 0
