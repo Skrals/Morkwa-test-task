@@ -3,9 +3,15 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [field: SerializeField] public bool IsFinished { get; set; }
 
     private void Update()
     {
+        if(IsFinished)
+        {
+            return;
+        }
+
         if (Input.GetKey(KeyCode.W))
         {
             transform.position += Vector3.up * _speed * Time.deltaTime;
