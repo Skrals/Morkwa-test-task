@@ -1,6 +1,4 @@
-using UnityEngine;
-
-public class Finish : MonoBehaviour
-{
+public class Finish : Cell
+{ 
     
 }

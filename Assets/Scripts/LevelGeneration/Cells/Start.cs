@@ -1,6 +1,4 @@
-using UnityEngine;
-
-public class Start : MonoBehaviour
+public class Start : Cell
 {
  
 }
