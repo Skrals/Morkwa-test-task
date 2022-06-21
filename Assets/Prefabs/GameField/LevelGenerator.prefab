@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4349441187336857498}
   - component: {fileID: 4349441187336857497}
+  - component: {fileID: 50010566}
   m_Layer: 0
   m_Name: LevelGenerator
   m_TagString: Untagged
@@ -47,3 +48,17 @@ MonoBehaviour:
   _blockTemplate: {fileID: 7411917825771535733, guid: 32b80fb7ff053c74abae9606eb28cdc7, type: 3}
   _finishTemplate: {fileID: 7591422872281408702, guid: a856ca6059792ad4ead642c7946c2ecf, type: 3}
   _startTemplate: {fileID: 6114299322367627611, guid: 7fb7377543bca2d4480145ec0bbf128e, type: 3}
+--- !u!114 &50010566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4349441187336857496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 216dc036c03c5e648b222c798ae16c67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyTemplate: {fileID: 6793716512876227278, guid: 15cae63fed23fb641985609b6a77dcb7, type: 3}
+  _enemyCount: 2

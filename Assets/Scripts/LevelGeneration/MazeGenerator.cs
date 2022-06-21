@@ -53,7 +53,7 @@ public class MazeGenerator
     {
         for (int y = 0; y < maze.GetLength(1); y++)
         {
-            for (int x = 1; x  < maze.GetLength(0); x++)
+            for (int x = 1; x < maze.GetLength(0); x++)
             {
                 if ((x + 2) < maze.GetLength(0))
                 {
@@ -80,11 +80,11 @@ public class MazeGenerator
         MazeGeneratorCell current = maze[0, 0];
         current.Visited = true;
 
-        Stack<MazeGeneratorCell> stack = new Stack<MazeGeneratorCell>();
+        Stack<MazeGeneratorCell> stack = new();
 
         do
         {
-            List<MazeGeneratorCell> unvisitedCell = new List<MazeGeneratorCell>();
+            List<MazeGeneratorCell> unvisitedCell = new();
             int x = current.X;
             int y = current.Y;
 
