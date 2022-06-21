@@ -104,9 +104,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
+  _patrolPointTemplate: {fileID: 4901968349426482568, guid: 78c9328586e6b864c9faf61363976ddd, type: 3}
   _blocks: []
+  _walls: []
   _seek: {fileID: 127932744}
   _avoid: {fileID: 8766023654648941612}
+  _patrolPoints: []
+  _patrolPoint1: {x: 0, y: 0}
+  _patrolPoint2: {x: 0, y: 0}
 --- !u!50 &3735701268340160761
 Rigidbody2D:
   serializedVersion: 4
@@ -170,7 +175,7 @@ MonoBehaviour:
       Unlimited: 0
       Epsilons:
       - 0
-      - 0.4
+      - 0.6
   selfObject: {fileID: 0}
   indicatorGizmo:
     Enabled: 1
@@ -330,10 +335,10 @@ MonoBehaviour:
     PresetVelocity: 0
     Prediction: 0
     PredictionMagnitude: 0
-    InnerRadius: 0.1
+    InnerRadius: 1
     OuterRadius: 2
-    RadiusMapping: 2
-    PlaneBend: 60
+    RadiusMapping: 4
+    PlaneBend: 45
     UseVelocity: 1
     DefaultOrientation: {x: 0, y: 1, z: 0}
   PlaneGizmo:
