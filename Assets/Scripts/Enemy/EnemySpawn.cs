@@ -40,7 +40,6 @@ public class EnemySpawn : MonoBehaviour
                 break;
             }
         }
-
     }
 
     private void SpawnEnemy(Enemy enemy, int x, int y)
