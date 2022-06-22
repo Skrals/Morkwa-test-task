@@ -15,8 +15,21 @@ public class Enemy : MonoBehaviour
     private MazeGeneratorCell[,] _maze;
     [SerializeField] private PatrolPoint[] _patrolPoints;
 
-    [SerializeField] private Vector2 _patrolPoint1;
-    [SerializeField] private Vector2 _patrolPoint2;
+    [SerializeField] private float _searchingDistance;
+    [SerializeField] private GameObject _viewZone;
+    private bool _isFounded;
+    private Player _player;
+
+    private void OnEnable()
+    {
+        _player = FindObjectOfType<Player>();
+        _player.GetComponent<PlayerController>().GameOver += OnGameOver;
+    }
+
+    private void OnDisable()
+    {
+        _player.GetComponent<PlayerController>().GameOver -= OnGameOver;
+    }
 
     private void Start()
     {
@@ -37,16 +50,38 @@ public class Enemy : MonoBehaviour
             _avoid.GameObjects.Add(wall.gameObject);
         }
 
-        _patrolPoint1 = GetPatrolPoint();
-        _patrolPoint2 = GetPatrolPoint();
+        _patrolPoints[0] = Instantiate(_patrolPointTemplate, GetPatrolPoint(), Quaternion.identity);
+        _patrolPoints[1] = Instantiate(_patrolPointTemplate, GetPatrolPoint(), Quaternion.identity);
 
-        var point1 = Instantiate(_patrolPointTemplate, _patrolPoint1, Quaternion.identity);
-        var point2 = Instantiate(_patrolPointTemplate, _patrolPoint2, Quaternion.identity);
+        GetTarget(_patrolPoints[1].gameObject);
 
-        _patrolPoints[0] = point1;
-        _patrolPoints[1] = point2;
+        transform.position = _patrolPoints[0].transform.position;
+        DrawViewCircle();
+    }
 
-        GetTarget(_patrolPoints[0].gameObject);
+    private void Update()
+    {
+        if (!_isFounded && DistanceToPlayer() <= _searchingDistance)
+        {
+            PlayerDetected();
+            _isFounded = true;
+        }
+    }
+
+    private float DistanceToPlayer()
+    {
+        float distance = Vector3.Distance(transform.position, _player.transform.position);
+        return distance;
+    }
+
+    private void DrawViewCircle()
+    {
+        _viewZone.transform.localScale = new Vector3(_searchingDistance * 6.33f, _searchingDistance * 6.33f);
+    }
+
+    private void OnGameOver(bool over)
+    {
+        gameObject.GetComponent<AIMSimpleController2D>().enabled = false;
     }
 
     private Vector2 GetPatrolPoint()
@@ -72,14 +107,14 @@ public class Enemy : MonoBehaviour
         _seek.GameObjects.Add(_target);
     }
 
-    public void PlayerDetectedByNoise()
+    public void PlayerDetected()
     {
         GetTarget(FindObjectOfType<Player>().gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out PatrolPoint patrolPoint))
+        if (!_isFounded && collision.gameObject.TryGetComponent(out PatrolPoint patrolPoint))
         {
             if (patrolPoint == _patrolPoints[0])
             {

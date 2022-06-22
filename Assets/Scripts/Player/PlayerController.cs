@@ -1,13 +1,17 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private bool _isOver;
     [field: SerializeField] public bool IsFinished { get; set; }
+
+    public event UnityAction<bool> GameOver;
 
     private void Update()
     {
-        if(IsFinished)
+        if (IsFinished || _isOver)
         {
             return;
         }
@@ -20,13 +24,23 @@ public class PlayerController : MonoBehaviour
         {
             transform.position += Vector3.down * _speed * Time.deltaTime;
         }
-        if(Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
             transform.position += Vector3.right * _speed * Time.deltaTime;
         }
-        if( Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
             transform.position += Vector3.left * _speed * Time.deltaTime;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out Enemy enemy))
+        {
+            _isOver = true;
+            GameOver?.Invoke(_isOver);
+            Debug.Log("GameOver");
         }
     }
 }
