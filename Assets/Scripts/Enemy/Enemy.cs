@@ -23,6 +23,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _searchingDistance;
     [SerializeField] private GameObject _viewZone;
     [SerializeField] private float _viewZoneScaleFactor;
+    [SerializeField] private Gradient _gradient;
+    [SerializeField] private float _colorCycleTime;
+
+    private SpriteRenderer _spriteRenderer;
+
     private bool _isFounded;
     private Player _player;
 
@@ -30,16 +35,22 @@ public class Enemy : MonoBehaviour
     {
         _player = FindObjectOfType<Player>();
         _player.GetComponent<PlayerController>().GameOver += OnGameOver;
+        _player.GetComponent<Noise>().Detected += PlayerDetected;
     }
 
     private void OnDisable()
     {
         _player.GetComponent<PlayerController>().GameOver -= OnGameOver;
+        _player.GetComponent<Noise>().Detected -= PlayerDetected;
     }
 
     private void Start()
     {
         _patrolPoints = new PatrolPoint[2];
+
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _viewZoneScaleFactor = _searchingDistance * 3f + gameObject.transform.localScale.x;
+
         _spawner = FindObjectOfType<MazeSpawner>();
         _maze = _spawner.GetMaze();
 
@@ -70,12 +81,16 @@ public class Enemy : MonoBehaviour
         if (!_isFounded && DistanceToPlayer() <= _searchingDistance)
         {
             PlayerDetected();
-            _isFounded = true;
         }
 
-        if(_player.gameObject.GetComponent<PlayerController>().IsFinished)
+        if (_player.gameObject.GetComponent<PlayerController>().IsFinished)
         {
             OnGameOver(true);
+        }
+
+        if(_isFounded)
+        {
+            _spriteRenderer.color = _gradient.Evaluate(Mathf.PingPong(Time.time, _colorCycleTime) / _colorCycleTime);
         }
     }
 
@@ -118,9 +133,11 @@ public class Enemy : MonoBehaviour
         _seek.GameObjects.Add(_target);
     }
 
-    public void PlayerDetected()
+    private void PlayerDetected()
     {
+        _isFounded = true;
         GetTarget(FindObjectOfType<Player>().gameObject);
+        _viewZone.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -137,4 +154,5 @@ public class Enemy : MonoBehaviour
             }
         }
     }
+
 }
