@@ -3,18 +3,23 @@ using Polarith.AI.Move;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("")]
     [SerializeField] private GameObject _target;
     [SerializeField] private PatrolPoint _patrolPointTemplate;
+
+    [Header("")]
     [SerializeField] private Block[] _blocks;
     [SerializeField] private Wall[] _walls;
 
+    [Header("Polarith AI")]
     [SerializeField] private AIMSeek _seek;
     [SerializeField] private AIMAvoid _avoid;
 
     private MazeSpawner _spawner;
     private MazeGeneratorCell[,] _maze;
-    [SerializeField] private PatrolPoint[] _patrolPoints;
+    private PatrolPoint[] _patrolPoints;
 
+    [Header("Search settings")]
     [SerializeField] private float _searchingDistance;
     [SerializeField] private GameObject _viewZone;
     [SerializeField] private float _viewZoneScaleFactor;
@@ -66,6 +71,11 @@ public class Enemy : MonoBehaviour
         {
             PlayerDetected();
             _isFounded = true;
+        }
+
+        if(_player.gameObject.GetComponent<PlayerController>().IsFinished)
+        {
+            OnGameOver(true);
         }
     }
 
