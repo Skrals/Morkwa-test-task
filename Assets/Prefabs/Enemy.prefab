@@ -197,6 +197,7 @@ MonoBehaviour:
   _patrolPoints: []
   _searchingDistance: 2
   _viewZone: {fileID: 1015501346786952767}
+  _viewZoneScaleFactor: 6.33
 --- !u!50 &3735701268340160761
 Rigidbody2D:
   serializedVersion: 4

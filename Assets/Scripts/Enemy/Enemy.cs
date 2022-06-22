@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private float _searchingDistance;
     [SerializeField] private GameObject _viewZone;
+    [SerializeField] private float _viewZoneScaleFactor;
     private bool _isFounded;
     private Player _player;
 
@@ -76,7 +77,7 @@ public class Enemy : MonoBehaviour
 
     private void DrawViewCircle()
     {
-        _viewZone.transform.localScale = new Vector3(_searchingDistance * 6.33f, _searchingDistance * 6.33f);
+        _viewZone.transform.localScale = new Vector3(_searchingDistance * _viewZoneScaleFactor, _searchingDistance * _viewZoneScaleFactor);
     }
 
     private void OnGameOver(bool over)
