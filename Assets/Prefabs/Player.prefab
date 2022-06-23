@@ -114,9 +114,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <NoiseMeter>k__BackingField: 0
+  <DetectionLevel>k__BackingField: 10
   _increaseSpeed: 3
   _decreaseSpeed: 0.5
-  _detectionLevel: 10
 --- !u!114 &7948936664446357179
 MonoBehaviour:
   m_ObjectHideFlags: 0

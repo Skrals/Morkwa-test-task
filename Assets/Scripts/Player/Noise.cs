@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class Noise : MonoBehaviour
 {
     [field: SerializeField] public float NoiseMeter { get; private set; }
+    [field: SerializeField] public float DetectionLevel { get; private set; }
 
     [Header("Increase settings")]
     [SerializeField] private float _increaseSpeed;
@@ -11,12 +12,8 @@ public class Noise : MonoBehaviour
     [Header("Decrease settings")]
     [SerializeField] private float _decreaseSpeed;
 
-    [Header("Detection settings")]
-    [SerializeField] private float _detectionLevel;
-
     private bool _detected;
     public event UnityAction Detected;
-
 
     private void FixedUpdate()
     {
@@ -38,7 +35,7 @@ public class Noise : MonoBehaviour
             }
         }
 
-        if( NoiseMeter >=  _detectionLevel)
+        if( NoiseMeter >= DetectionLevel)
         {
             _detected = true;
             Detected?.Invoke();

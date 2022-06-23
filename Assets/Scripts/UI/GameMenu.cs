@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-
 public class GameMenu : MonoBehaviour
 {
     [SerializeField] private TMP_Text _endGameText;
