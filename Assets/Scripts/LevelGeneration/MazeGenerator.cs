@@ -88,7 +88,6 @@ public class MazeGenerator
             int x = current.X;
             int y = current.Y;
 
-
             if (x > 0 && !maze[x - 1, y].Visited) unvisitedCell.Add(maze[x - 1, y]);
             if (y > 0 && !maze[x, y - 1].Visited) unvisitedCell.Add(maze[x, y - 1]);
             if (x < _width - 2 && !maze[x + 1, y].Visited) unvisitedCell.Add(maze[x + 1, y]);
@@ -109,7 +108,6 @@ public class MazeGenerator
             }
         }
         while (stack.Count > 0);
-
     }
 
     private void RemoveWall(MazeGeneratorCell a, MazeGeneratorCell b)

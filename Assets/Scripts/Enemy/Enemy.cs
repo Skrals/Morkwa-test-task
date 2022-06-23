@@ -3,11 +3,11 @@ using Polarith.AI.Move;
 
 public class Enemy : MonoBehaviour
 {
-    [Header("")]
+    [Header("Templates")]
     [SerializeField] private GameObject _target;
     [SerializeField] private PatrolPoint _patrolPointTemplate;
 
-    [Header("")]
+    [Header("Avoid objects")]
     [SerializeField] private Block[] _blocks;
     [SerializeField] private Wall[] _walls;
 
@@ -15,16 +15,18 @@ public class Enemy : MonoBehaviour
     [SerializeField] private AIMSeek _seek;
     [SerializeField] private AIMAvoid _avoid;
 
-    private MazeSpawner _spawner;
-    private MazeGeneratorCell[,] _maze;
-    private PatrolPoint[] _patrolPoints;
-
     [Header("Search settings")]
     [SerializeField] private float _searchingDistance;
+
+    [Header("Search view settings")]
     [SerializeField] private GameObject _viewZone;
     [SerializeField] private float _viewZoneScaleFactor;
     [SerializeField] private Gradient _gradient;
     [SerializeField] private float _colorCycleTime;
+
+    private MazeSpawner _spawner;
+    private MazeGeneratorCell[,] _maze;
+    private PatrolPoint[] _patrolPoints;
 
     private SpriteRenderer _spriteRenderer;
 
@@ -66,7 +68,7 @@ public class Enemy : MonoBehaviour
             _avoid.GameObjects.Add(wall.gameObject);
         }
 
-        _patrolPoints[0] = Instantiate(_patrolPointTemplate, GetPatrolPoint(), Quaternion.identity);
+        _patrolPoints[0] = Instantiate(_patrolPointTemplate, GetPatrolPoint(), Quaternion.identity);//temporary solution
         _patrolPoints[1] = Instantiate(_patrolPointTemplate, GetPatrolPoint(), Quaternion.identity);
 
         GetTarget(_patrolPoints[1].gameObject);
@@ -159,5 +161,4 @@ public class Enemy : MonoBehaviour
             }
         }
     }
-
 }
