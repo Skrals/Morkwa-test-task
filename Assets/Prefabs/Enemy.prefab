@@ -290,7 +290,7 @@ MonoBehaviour:
       Unlimited: 0
       Epsilons:
       - 0
-      - 0.3
+      - 0.4
   selfObject: {fileID: 0}
   indicatorGizmo:
     Enabled: 1

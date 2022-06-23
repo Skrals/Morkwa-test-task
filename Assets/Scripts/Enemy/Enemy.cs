@@ -49,7 +49,6 @@ public class Enemy : MonoBehaviour
         _patrolPoints = new PatrolPoint[2];
 
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _viewZoneScaleFactor = _searchingDistance * 3f + gameObject.transform.localScale.x;
 
         _spawner = FindObjectOfType<MazeSpawner>();
         _maze = _spawner.GetMaze();
