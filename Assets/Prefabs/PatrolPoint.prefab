@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4275424577751341736}
   - component: {fileID: 4901968349426482568}
   - component: {fileID: 8073027934201499625}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PatrolPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.1
 --- !u!114 &4901968349426482568
 MonoBehaviour:
   m_ObjectHideFlags: 0

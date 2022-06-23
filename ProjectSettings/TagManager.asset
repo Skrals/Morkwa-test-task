@@ -47,3 +47,6 @@ TagManager:
   - name: ForwardLayer
     uniqueID: 1235998707
     locked: 0
+  - name: EnemyLayer
+    uniqueID: 2401505487
+    locked: 0

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7216523032398599327}
   - component: {fileID: 2586281145412706690}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ViewZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 127932744}
   - component: {fileID: 127932746}
   - component: {fileID: 8766023654648941612}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,8 +162,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1235998707
-  m_SortingLayer: 2
+  m_SortingLayerID: -1893461809
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.9245283, g: 0.5916571, b: 0.44918123, a: 1}

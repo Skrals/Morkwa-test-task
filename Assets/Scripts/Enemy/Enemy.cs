@@ -80,7 +80,13 @@ public class Enemy : MonoBehaviour
     {
         if (!_isFounded && DistanceToPlayer() <= _searchingDistance)
         {
-            PlayerDetected();
+            RaycastHit2D hit = Physics2D.Linecast(transform.position, _player.transform.position);
+            Debug.DrawLine(transform.position,_player.transform.position, Color.white);
+
+            if (hit.collider.gameObject == _player.gameObject)
+            {
+                PlayerDetected();
+            }
         }
 
         if (_player.gameObject.GetComponent<PlayerController>().IsFinished)
@@ -88,7 +94,7 @@ public class Enemy : MonoBehaviour
             OnGameOver(true);
         }
 
-        if(_isFounded)
+        if (_isFounded)
         {
             _spriteRenderer.color = _gradient.Evaluate(Mathf.PingPong(Time.time, _colorCycleTime) / _colorCycleTime);
         }
