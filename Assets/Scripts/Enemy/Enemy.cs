@@ -7,6 +7,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject _target;
     [SerializeField] private PatrolPoint _patrolPointTemplate;
 
+    [Header("Patrol points count")]
+    [SerializeField] private int _patrolPointsCount;
+
     [Header("Avoid objects")]
     [SerializeField] private Block[] _blocks;
     [SerializeField] private Wall[] _walls;
@@ -26,7 +29,11 @@ public class Enemy : MonoBehaviour
 
     private MazeSpawner _spawner;
     private MazeGeneratorCell[,] _maze;
+
     private PatrolPoint[] _patrolPoints;
+    private Vector2 _startPoint;
+    private int _pointNumber;
+    private bool _switchPatrolDirection;
 
     private SpriteRenderer _spriteRenderer;
 
@@ -48,7 +55,8 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        _patrolPoints = new PatrolPoint[2];
+        _patrolPoints = new PatrolPoint[_patrolPointsCount];
+        _pointNumber = 0;
 
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -68,12 +76,17 @@ public class Enemy : MonoBehaviour
             _avoid.GameObjects.Add(wall.gameObject);
         }
 
-        _patrolPoints[0] = Instantiate(_patrolPointTemplate, GetPatrolPoint(), Quaternion.identity);//temporary solution
-        _patrolPoints[1] = Instantiate(_patrolPointTemplate, GetPatrolPoint(), Quaternion.identity);
+        _startPoint = GetStartPoint();
+        _patrolPoints[0] = Instantiate(_patrolPointTemplate, _startPoint, Quaternion.identity);
 
-        GetTarget(_patrolPoints[1].gameObject);
+        for (int i = 1; i < _patrolPointsCount; i++)
+        {
+            _patrolPoints[i] = Instantiate(_patrolPointTemplate, GetPatrolPoint(), Quaternion.identity);
+        }
 
-        transform.position = _patrolPoints[0].transform.position;
+        GetTarget(_patrolPoints[_pointNumber + 1].gameObject);
+
+        transform.position = _patrolPoints[_pointNumber].transform.position;
         DrawViewCircle();
     }
 
@@ -82,7 +95,7 @@ public class Enemy : MonoBehaviour
         if (!_isFounded && DistanceToPlayer() <= _searchingDistance)
         {
             RaycastHit2D hit = Physics2D.Linecast(transform.position, _player.transform.position);
-            Debug.DrawLine(transform.position,_player.transform.position, Color.white);
+            Debug.DrawLine(transform.position, _player.transform.position, Color.white);
 
             if (hit.collider.gameObject == _player.gameObject)
             {
@@ -117,7 +130,7 @@ public class Enemy : MonoBehaviour
         gameObject.GetComponent<AIMSimpleController2D>().enabled = false;
     }
 
-    private Vector2 GetPatrolPoint()
+    private Vector2 GetStartPoint()
     {
         System.Random rand = new();
 
@@ -126,10 +139,76 @@ public class Enemy : MonoBehaviour
             int x = rand.Next(_maze.GetLength(0) - 2);
             int y = rand.Next(_maze.GetLength(1) - 2);
 
-            if (_maze[x, y].BlockEnabled == false)
+            if (_maze[x, y].BlockEnabled == false && _maze[x, y].PatrolPoint == false)
             {
+                _maze[x, y].PatrolPoint = true;
                 return new Vector2(x, y);
             }
+        }
+    }
+
+    private Vector2 GetPatrolPoint()
+    {
+        var current = _startPoint;
+        int x = (int)current.x;
+        int y = (int)current.y;
+
+        if (x > 0 && !_maze[x - 1, y].BlockEnabled && !_maze[x - 1, y].PatrolPoint)
+        {
+            _maze[x - 1, y].PatrolPoint = true;
+            _startPoint = new Vector2(x - 1, y);
+        }
+        else if (y > 0 && !_maze[x, y - 1].BlockEnabled && !_maze[x, y - 1].PatrolPoint)
+        {
+            _maze[x, y - 1].PatrolPoint = true;
+            _startPoint = new Vector2(x, y - 1);
+        }
+        else if (x < _maze.GetLength(0) - 2 && !_maze[x + 1, y].BlockEnabled && !_maze[x + 1, y].PatrolPoint)
+        {
+            _maze[x + 1, y].PatrolPoint = true;
+            _startPoint = new Vector2(x + 1, y);
+        }
+        else if (y < _maze.GetLength(1) - 2 && !_maze[x, y + 1].BlockEnabled && !_maze[x, y + 1].PatrolPoint)
+        {
+            _maze[x, y + 1].PatrolPoint = true;
+            _startPoint = new Vector2(x, y + 1);
+        }
+
+        return _startPoint;
+    }
+
+    private void MoveNextPoint()
+    {
+        PatrolPoint next = null;
+
+        if (_switchPatrolDirection == false && _pointNumber < _patrolPoints.Length - 1)
+        {
+            next = _patrolPoints[_pointNumber + 1];
+            _pointNumber++;
+        }
+        else
+        {
+            _switchPatrolDirection = true;
+        }
+
+        if (_switchPatrolDirection == true && _pointNumber > 0)
+        {
+            next = _patrolPoints[_pointNumber - 1];
+            _pointNumber--;
+        }
+        else
+        {
+            if (_pointNumber <= 0)
+            {
+                next = _patrolPoints[_pointNumber + 1];
+                _pointNumber++;
+            }
+            _switchPatrolDirection = false;
+        }
+
+        if (next != null)
+        {
+            GetTarget(next.gameObject);
         }
     }
 
@@ -151,14 +230,7 @@ public class Enemy : MonoBehaviour
     {
         if (!_isFounded && collision.gameObject.TryGetComponent(out PatrolPoint patrolPoint))
         {
-            if (patrolPoint == _patrolPoints[0])
-            {
-                GetTarget(_patrolPoints[1].gameObject);
-            }
-            else
-            {
-                GetTarget(_patrolPoints[0].gameObject);
-            }
+            MoveNextPoint();
         }
     }
 }

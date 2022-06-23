@@ -190,6 +190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
   _patrolPointTemplate: {fileID: 4901968349426482568, guid: 78c9328586e6b864c9faf61363976ddd, type: 3}
+  _patrolPointsCount: 5
   _blocks: []
   _walls: []
   _seek: {fileID: 127932744}
@@ -227,6 +228,8 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   _colorCycleTime: 2
+  _pointNumber: 0
+  _switchPatrolDirection: 0
 --- !u!50 &3735701268340160761
 Rigidbody2D:
   serializedVersion: 4
@@ -290,7 +293,7 @@ MonoBehaviour:
       Unlimited: 0
       Epsilons:
       - 0
-      - 0.4
+      - 0.5
   selfObject: {fileID: 0}
   indicatorGizmo:
     Enabled: 1

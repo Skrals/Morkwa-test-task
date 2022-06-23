@@ -7,6 +7,7 @@ public class MazeGeneratorCell
     public int Y;
 
     public bool BlockEnabled = true;
+    public bool PatrolPoint = false;
     public bool Visited = false;
 
     public bool Start = false;
