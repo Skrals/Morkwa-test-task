@@ -6,14 +6,10 @@ public class GameUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text _endGameText;
 
-    private void Start()
+    public void OverText(bool finishFlag)
     {
-        OverText(_endGameText);
-    }
-
-    private void OverText(TMP_Text overText)
-    {
-        overText.text = "end";
+        string text = finishFlag ? "You won" : "You Lose";
+        _endGameText.text = text;
     }
 
     public void ContinueButton() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);

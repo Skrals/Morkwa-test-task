@@ -9,6 +9,10 @@ public class PlayerController : MonoBehaviour
 
     public event UnityAction<bool> GameOver;
 
+    private GameUI _gameUI;
+
+    private void OnEnable() => _gameUI = FindObjectOfType<GameUI>();
+
     private void Update()
     {
         if (IsFinished || _isOver)
@@ -40,7 +44,9 @@ public class PlayerController : MonoBehaviour
         {
             _isOver = true;
             GameOver?.Invoke(_isOver);
-            Debug.Log("GameOver");
+
+            _gameUI.gameObject.SetActive(true);
+            _gameUI.OverText(false);
         }
     }
 }
