@@ -123,24 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &117680427 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7307431152449986997, guid: 42f82032417898c478bc085ff6836b06, type: 3}
-  m_PrefabInstance: {fileID: 5114302032041943056}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &117680429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 117680427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddba8bac63b29e84ea35690f654d1f5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _noiseDetector: {fileID: 0}
 --- !u!1001 &459611603
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -374,10 +356,6 @@ PrefabInstance:
     - target: {fileID: 2785597227654999212, guid: 56b1e52826344fa47b5f7275669ad13e, type: 3}
       propertyPath: m_Name
       value: GameMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 2785597227654999212, guid: 56b1e52826344fa47b5f7275669ad13e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2785597227654999216, guid: 56b1e52826344fa47b5f7275669ad13e, type: 3}
       propertyPath: m_Pivot.x
@@ -616,10 +594,6 @@ PrefabInstance:
     - target: {fileID: 3717504738151118869, guid: 42f82032417898c478bc085ff6836b06, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7972673516503686714, guid: 42f82032417898c478bc085ff6836b06, type: 3}
-      propertyPath: m_TargetGraphic
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8540702361944620411, guid: 42f82032417898c478bc085ff6836b06, type: 3}
       propertyPath: m_Name
