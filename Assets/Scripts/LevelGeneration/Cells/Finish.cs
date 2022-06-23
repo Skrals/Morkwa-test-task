@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Finish : Cell
 {
-    [SerializeField] private GameUI _gameUI;
+    [SerializeField] private GameMenu _gameUI;
 
     private void Start()
     {
-        _gameUI = FindObjectOfType<GameUI>();
+        _gameUI = FindObjectOfType<GameMenu>();
         _gameUI.gameObject.SetActive(false);
     }
 

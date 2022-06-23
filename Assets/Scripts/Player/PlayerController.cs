@@ -9,9 +9,9 @@ public class PlayerController : MonoBehaviour
 
     public event UnityAction<bool> GameOver;
 
-    private GameUI _gameUI;
+    private GameMenu _gameUI;
 
-    private void OnEnable() => _gameUI = FindObjectOfType<GameUI>();
+    private void OnEnable() => _gameUI = FindObjectOfType<GameMenu>();
 
     private void Update()
     {
